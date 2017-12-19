@@ -1,0 +1,161 @@
+<html>
+
+<style>
+div.format{
+    width: 100%;
+
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    font-size:16px;
+
+}
+
+
+</style>
+
+
+
+<header>
+    <title>The Senate</title>
+</header>
+
+
+<h1 style = "text-align: center; font-family: impact, Charcoal, sans-serif; color:ff6600; font-size: 250%"> What We Need </h1>
+
+
+<body style = "width: 45%; margin: 0 auto;">
+
+    <div id = "items" class = "format"></div>
+
+    <div style = "width: 50%; margin: 0 auto;" id = "get_input">
+        Item: <input type = "text" name = "Item:" id = "itm"><br>
+        <button onclick = "createButton()">Add Item</button>
+    </div>
+
+
+
+    <script language = "Javascript">
+
+        //window.onload = localStorage.clear();
+        var list = [];
+        try{
+            var data = JSON.parse(localStorage.getItem("array"));
+            var i = 0;
+            console.log(data.length);
+            for (i = 0; i < data.length; i++){
+                list.push(data[i])
+                writeButtons(data[i]);
+            }
+
+
+        }
+        catch(err){
+            console.log(err);
+        }
+
+
+        var count = 0;
+
+
+        function writeButtons(text){
+            console.log("Hello");
+
+            var container = document.getElementById('items');
+
+            var temp = document.createElement("input");
+            temp.type = 'button';
+            temp.style = "background-color: #0099ff; border: solid; color: white; padding: 15px 32px; text-align: center; font-size: 16px; text-decoration: none; display: inline-block; margin: 0 10px 0 10px;";
+            temp.id = count;
+            temp.value = text;
+            count = count + 1;
+
+            temp.onclick = function(){
+                var old = list;
+                console.log(old.length);
+                list = [];
+                console.log(old.length);
+                var x = 0; //i for old j for new
+                var y = 0;
+                try {
+                    console.log("SSSSSS");
+                    while (x < old.length - 1){
+                        console.log("Wowzers");
+                        console.log(old[y]);
+                        if (old[y] != temp.value){
+                            list[x] = old[y];
+                            console.log(list[x]);
+                            x = x + 1;
+                        }
+                        y = y + 1;
+                    }
+                }
+
+                catch(err){
+                    console.log(err);
+                }
+
+                container.removeChild(temp);
+                localStorage.setItem("array", JSON.stringify(list));
+
+            };
+            container.appendChild(temp);
+
+        }
+
+        function createButton()
+        {
+
+
+            var container = document.getElementById('items');
+
+            var temp = document.createElement("input");
+            temp.type = 'button';
+            temp.style = "background-color: #0099ff; border: solid; color: white; padding: 15px 32px; text-align: center; font-size: 16px; text-decoration: none; display: inline-block; margin: 0 10px 0 10px;";
+            temp.id = count;
+            temp.value = document.getElementById('itm').value;
+            count = count + 1;
+
+            temp.onclick = function(){
+                var old = list;
+                console.log(old.length);
+                list = [];
+                console.log(old.length);
+                var x = 0; //i for old j for new
+                var y = 0;
+                try {
+                    console.log("SSSSSS");
+                    while (x < old.length - 1){
+                        console.log("Wowzers");
+                        console.log(old[y]);
+                        if (old[y] != temp.value){
+                            list[x] = old[y];
+                            console.log(list[x]);
+                            x = x + 1;
+                        }
+                        y = y + 1;
+                    }
+                }
+
+                catch(err){
+                    console.log(err);
+                }
+                container.removeChild(temp);
+                console.log(list);
+                localStorage.setItem("array", JSON.stringify(list));
+
+            };
+            container.appendChild(temp);
+            list.push(temp.value);
+            console.log(list);
+            localStorage.setItem("array", JSON.stringify(list));
+
+        }
+
+    </script>
+
+</body>
+
+
+</html>
